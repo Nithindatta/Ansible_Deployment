@@ -1,0 +1,10 @@
+---
+- name: Create Users on remote server
+  ansible.builtin.user:
+    name: "{{ item.username }}"
+    group: "{{ item.group }}"
+    append: yes
+    state: present
+    create_home: yes
+    password: "{{ item.password }}"
+  loop: "{{ users }}"

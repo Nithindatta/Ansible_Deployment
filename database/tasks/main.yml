@@ -1,0 +1,5 @@
+---
+# tasks file for database
+
+- name: Configure MariaDB Server
+  ansible.builtin.import_tasks: mariadb.yaml

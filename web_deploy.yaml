@@ -1,0 +1,11 @@
+---
+- name: Apache Application Deployment
+  hosts: all
+  gather_facts: true
+  become: true
+  
+  vars_files:
+    - cred.yaml
+
+  roles:
+    - web_application/webserver

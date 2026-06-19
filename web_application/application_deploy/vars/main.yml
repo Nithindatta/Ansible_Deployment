@@ -1,0 +1,6 @@
+---
+# vars file for application_deploy
+
+dest_dir: /var/tmp
+tar_files: "GDDC Monthly Inventory Reports May 2026.tar"
+

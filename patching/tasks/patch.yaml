@@ -1,0 +1,20 @@
+---
+- name: Patch the Ubuntu Server
+  ansible.builtin.apt:
+    update_cache: yes
+    upgrade: yes
+    autoclean: yes
+  when: ansible_facts['os_family'] == 'Debian'
+
+- name: Patch the RedHat Server
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+  when: ansible_facts['os_family'] == 'RedHat'
+
+- name: Check the SSH service
+  ansible.builtin.service_facts:
+
+#- name: Display the Status
+#  debug:
+#    msg: SSH Service is "{{ ansible_facts.service['ssh.service'].state }}"

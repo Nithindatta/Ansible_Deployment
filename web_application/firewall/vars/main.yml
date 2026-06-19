@@ -1,0 +1,6 @@
+---
+# vars file for firewall
+
+ssh_port: 22
+http_port: 80
+https_port: 443

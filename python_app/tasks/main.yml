@@ -1,0 +1,5 @@
+---
+# tasks file for python_app
+
+- name: Deploy Flask application
+  ansible.builtin.import_tasks: conf.yaml

@@ -1,0 +1,5 @@
+---
+# tasks file for application_deploy
+
+- name: App Deploy
+  ansible.builtin.import_tasks: app.yaml

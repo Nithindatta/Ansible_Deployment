@@ -1,0 +1,12 @@
+---
+- name: Configure Database Server
+  hosts: all
+  gather_facts: true
+  become: yes
+
+  vars_files:
+    - cred.yaml
+
+  roles:
+    - database
+  

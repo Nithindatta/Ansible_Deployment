@@ -1,0 +1,14 @@
+---
+# handlers file for Server_Configuration
+
+- name: Restart Chrony
+  ansible.builtin.service:
+    name: chrony
+    state: restarted
+    enabled: true
+
+- name: Restart SSH
+  ansible.builtin.service:
+    name: ssh
+    state: restarted
+    enabled: true

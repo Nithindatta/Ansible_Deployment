@@ -1,0 +1,11 @@
+---
+# tasks file for firewall
+
+- name: Configure Firewall
+  ansible.builtin.import_tasks: conf.yaml
+
+- name: Configure Password Policies
+  ansible.builtin.import_tasks: policy.yaml
+
+- name: Configure Logon banner 
+  ansible.builtin.import_tasks: banner.yaml

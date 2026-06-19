@@ -1,0 +1,90 @@
+---
+- name: Install Python
+  ansible.builtin.apt:
+    name: 
+      - python3-pip
+      - python3-venv
+    state: present
+    update_cache: true
+
+- name: Create Application Directory
+  ansible.builtin.file:
+    name: /opt/inventoryapp
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    mode: '0755'
+
+- name: Create a Python Environment
+  ansible.builtin.command:
+    cmd: python3 -m venv /opt/inventoryapp/venv
+    creates: /opt/inventoryapp/venv/bin/active
+
+- name: Copy the app.py 
+  copy:
+    src: /etc/ansible/app.py
+    dest: /opt/inventoryapp/app.py
+    owner: ubuntu
+    group: ubuntu
+    mode: '0755'
+
+- name: Install PyMySql and Flask
+  ansible.builtin.pip:
+    name:
+      - flask
+      - pymysql
+    virtualenv: /opt/inventoryapp/venv
+
+- name: Start the Flask Application
+  ansible.builtin.shell:
+    cmd: |
+      /opt/inventoryapp/venv/bin/python /opt/inventoryapp/app.py &
+
+- name: Create environment file
+  ansible.builtin.copy:
+    dest: /opt/inventoryapp/.env
+    content: |
+      DB_HOST=172.31.40.42
+      DB_NAME=inventory
+      DB_USER=appuser
+      DB_PASSWORD={{ app_password }}
+    owner: ubuntu
+    group: ubuntu
+    mode: '0600'
+
+- name: Create systemd service
+  ansible.builtin.copy:
+    dest: /etc/systemd/system/inventory-app.service
+    content: |
+      [Unit]
+      Description=Inventory Flask Application
+      After=network.target
+
+      [Service]
+      User=ubuntu
+      Group=ubuntu
+      WorkingDirectory=/opt/inventoryapp
+      EnvironmentFile=/opt/inventoryapp/.env
+      ExecStart=/opt/inventoryapp/venv/bin/python /opt/inventoryapp/app.py
+      Restart=always
+
+      [Install]
+      WantedBy=multi-user.target
+    mode: '0644'
+
+- name: Reload systemd
+  ansible.builtin.systemd:
+    daemon_reload: true
+
+- name: Enable and start inventory application
+  ansible.builtin.systemd:
+    name: inventory-app
+    enabled: true
+    state: started
+
+- name: Gather service facts
+  ansible.builtin.service_facts:
+
+- name: Check inventory-app service
+  ansible.builtin.debug:
+    var: ansible_facts.services['inventory-app.service'].state

@@ -1,0 +1,17 @@
+---
+# defaults file for Server_Configuration
+
+ntp_servers:
+  - 0.pool.ntp.org
+  - 1.pool.ntp.org
+  - 2.pool.ntp.org
+  - 3.pool.ntp.org
+
+users:
+  - username: sfazil
+    group: sudo
+    password: "$6$BJV57N0hdbgkz3KR$5zL8xz3cmDdjCy./Tdt.dEzOXIvFKPv8XU0dbXtQViA1jp/8PNUTmre3.t73os/hYszR9f8DJEPb7z/enJ12u1"
+
+  - username: tpanda
+    group: sudo
+    password: "$6$BJV57N0hdbgkz3KR$5zL8xz3cmDdjCy./Tdt.dEzOXIvFKPv8XU0dbXtQViA1jp/8PNUTmre3.t73os/hYszR9f8DJEPb7z/enJ12u1"

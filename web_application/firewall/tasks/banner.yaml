@@ -1,0 +1,20 @@
+---
+- name: Configure Login Banner
+  ansible.builtin.copy:
+    dest: /etc/issue.net
+    content: |
+      ****************************************************************
+      WARNING: Authorized users only.
+      All activities on this system are monitored and logged.
+      Unauthorized access is prohibited.
+      ****************************************************************
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Configure SSH banner
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?Banner'
+    line: 'Banner /etc/issue.net'
+  notify: Restart SSH

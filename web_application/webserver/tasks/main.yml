@@ -1,0 +1,5 @@
+---
+# tasks file for webserver
+
+- name: Deploy Apache Application
+  ansible.builtin.import_tasks: deploy.yaml

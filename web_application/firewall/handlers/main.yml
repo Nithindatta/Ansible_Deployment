@@ -1,0 +1,7 @@
+---
+# handlers file for firewall
+
+- name: Restart SSH
+  ansible.builtin.service:
+    name: ssh
+    state: restarted

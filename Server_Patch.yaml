@@ -1,0 +1,10 @@
+---
+- name: Update the latest Security Updates to the servers
+  hosts: all
+  gather_facts: true
+  become: yes
+  vars_files:
+    - cred.yaml
+
+  roles:
+    - patching

@@ -1,0 +1,9 @@
+---
+- name: Install GIT
+  hosts: all
+  gather_facts: true
+  become: true
+  vars_files:
+    - cred.yaml
+  roles:
+    - roles/webservers

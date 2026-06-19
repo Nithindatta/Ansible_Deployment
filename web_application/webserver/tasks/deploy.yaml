@@ -1,0 +1,24 @@
+---
+- name: Deploy Apache Application
+  ansible.builtin.apt:
+    name: apache2
+    state: present
+
+- name: Start the  Apache Service
+  ansible.builtin.service:
+    name: apache2
+    state: started 
+    enabled: true
+  notify: Restart Service
+
+- name: Check the Firewall Status
+  ansible.builtin.command: ufw status
+  register: ufw_status
+  changed_when: false
+
+- name: Allow the Custom Port
+  ansible.builtin.lineinfile:
+    path: /etc/apache2/ports.conf
+    regexp: '^#?Listen'
+    line: 'Listen 9090'
+  notify: Restart Service

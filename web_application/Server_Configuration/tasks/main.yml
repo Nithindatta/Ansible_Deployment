@@ -1,0 +1,14 @@
+---
+# tasks file for Server_Configuration
+
+- name: Configure Servers
+  ansible.builtin.import_tasks: server.yaml
+
+- name: Configure NTP
+  ansible.builtin.import_tasks: ntp.yaml 
+
+- name: Create Users On remote servers
+  ansible.builtin.import_tasks: user_conf.yaml
+
+- name: SSH Hardening
+  ansible.builtin.import_tasks: ssh_hardening.yaml

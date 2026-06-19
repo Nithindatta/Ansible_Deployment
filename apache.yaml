@@ -1,0 +1,9 @@
+---
+- name: Install and Configure
+  hosts: all
+  become: true
+  gather_facts: true
+  vars_files:
+    - cred.yaml
+  roles:
+    - apache
