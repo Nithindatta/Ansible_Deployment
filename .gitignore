@@ -1,0 +1,5 @@
+vault.pass
+cred.yaml
+secrets.yaml
+*.retry
+*.tar
